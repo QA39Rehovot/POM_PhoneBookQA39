@@ -45,9 +45,31 @@ public class RegistrationTests extends AppiumConfig {
                         .isContactListActivityPresent();
     }
 
+    @Test
+    public void registrationWrongEmail(){
+        new SplashScreen(driver)
+                .gotoAuthenticationScreen()
+                .fillEmail("abc_" + i + "def.com")
+                .fillPassword("$Abcdef12345")
+                .submitRegistrationNegative()
+                .isErrorMessageContainsText("email address");
+    }
 
+    @Test
+    public void registrationWrongPassword() {
+        new SplashScreen(driver)
+                .gotoAuthenticationScreen()
+                .registrationNegative(
+                        Auth.builder()
+                                .email("abc_" + i + "@def.com")
+                                .password("Abcdef12345")
+                                .build()
+                )
+//                .isErrorMessageContainsText("password");
+                .isErrorMessageContainsTextInAlert("password");
+    }
 
-    @AfterMethod
+        @AfterMethod
     public void postCondition(){
         new ContactListScreen(driver).logout();
         new SplashScreen(driver);

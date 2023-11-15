@@ -26,14 +26,22 @@ public class ContactListScreen extends BaseScreen{
     }
 
     public AuthenticationScreen logout(){
-        moreOption.click();
-        logoutButton.click();
+        if(isDisplayedWithException(moreOption)) {
+            moreOption.click();
+            logoutButton.click();
+        }
         return new AuthenticationScreen(driver);
     }
 
     public ContactListScreen assertContactListActivityPresent(){
         Assert.assertTrue(isContactListActivityPresent());
         return this;
+    }
+
+    public AddNewContactScreen openContactForm(){
+        waitElement(plusButton, 5);
+        plusButton.click();
+        return new AddNewContactScreen(driver);
     }
 
 }
