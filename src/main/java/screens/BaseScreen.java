@@ -35,5 +35,9 @@ public class BaseScreen {
         new WebDriverWait(driver, time).until(ExpectedConditions.visibilityOf(element));
     }
 
+    public boolean shouldHave(MobileElement element, String text, int time){
+        return new WebDriverWait(driver, time)
+                .until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
 
 }

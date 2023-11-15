@@ -2,6 +2,7 @@ package screens;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import models.Auth;
 import org.openqa.selenium.support.FindBy;
 
 public class AuthenticationScreen extends BaseScreen{
@@ -22,6 +23,15 @@ public class AuthenticationScreen extends BaseScreen{
     @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/loginBtn']")
     MobileElement loginButton;
 
+    @FindBy(xpath = "//*[@resource-id='android:id/message']")
+    MobileElement loginButton;
+
+    @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/loginBtn']")
+    MobileElement loginButton;
+
+
+
+
     public AuthenticationScreen fillEmail(String email){
         waitElement(editTextEmail, 5);
         type(editTextEmail, email);
@@ -37,6 +47,25 @@ public class AuthenticationScreen extends BaseScreen{
     public ContactListScreen submitLogin(){
         loginButton.click();
         pause(3000);
+        return new ContactListScreen(driver);
+    }
+    public ContactListScreen submitRegistration(){
+        registrationButton.click();
+        pause(3000);
+        return new ContactListScreen(driver);
+    }
+
+    public ContactListScreen login(Auth auth){
+        fillEmail(auth.getEmail());
+        fillPassword(auth.getPassword());
+        loginButton.click();
+        return new ContactListScreen(driver);
+    }
+
+    public ContactListScreen registration(Auth auth){
+        fillEmail(auth.getEmail());
+        fillPassword(auth.getPassword());
+        registrationButton.click();
         return new ContactListScreen(driver);
     }
 }

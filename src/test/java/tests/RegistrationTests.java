@@ -4,43 +4,52 @@ import config.AppiumConfig;
 import models.Auth;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import screens.AuthenticationScreen;
 import screens.ContactListScreen;
 import screens.SplashScreen;
 
-public class LoginTests extends AppiumConfig {
+import java.util.Random;
+
+public class RegistrationTests extends AppiumConfig {
+
+    int i;
+
+    @BeforeMethod
+    public void precondition() {
+        i = new Random().nextInt(1000) + 1000;
+    }
+
 
     @Test
-    public void loginPositive() {
-        Assert.assertTrue(
+    public void registrationPositive() {
                 new SplashScreen(driver)
                         .gotoAuthenticationScreen()
-                        .fillEmail("abc@def.com")
+                        .fillEmail("abc_" + i + "@def.com")
                         .fillPassword("$Abcdef12345")
-                        .submitLogin()
-                        .isContactListActivityPresent()
-        );
+                        .submitRegistration()
+                        .assertContactListActivityPresent();
     }
 
     @Test
-    public void loginPositiveModel() {
-        Assert.assertTrue(
+    public void registrationPositiveModel() {
                 new SplashScreen(driver)
                         .gotoAuthenticationScreen()
-                        .login(
+                        .registration(
                                 Auth.builder()
-                                        .email("abc@def.com")
+                                        .email("abc_" + i + "@def.com")
                                         .password("$Abcdef12345")
                                         .build()
                         )
-                        .isContactListActivityPresent()
-        );
+                        .isContactListActivityPresent();
     }
+
+
 
     @AfterMethod
     public void postCondition(){
         new ContactListScreen(driver).logout();
         new SplashScreen(driver);
     }
-
 }
