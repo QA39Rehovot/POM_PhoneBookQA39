@@ -11,19 +11,19 @@ public class AddNewContactScreen extends BaseScreen{
         super(driver);
     }
 
-    @FindBy(xpath = "//*[id='com.sheygam.contactapp:id/inputName']")
+    @FindBy(id="com.sheygam.contactapp:id/inputName")
     MobileElement nameEditText;
-    @FindBy(xpath = "//*[id='com.sheygam.contactapp:id/inputLastName']")
+    @FindBy(id="com.sheygam.contactapp:id/inputLastName")
     MobileElement lastNameEditText;
-    @FindBy(xpath = "//*[id='com.sheygam.contactapp:id/inputEmail']")
+    @FindBy(id="com.sheygam.contactapp:id/inputEmail")
     MobileElement emailEditText;
-    @FindBy(xpath = "//*[id='com.sheygam.contactapp:id/inputPhone']")
+    @FindBy(id="com.sheygam.contactapp:id/inputPhone")
     MobileElement phoneEditText;
-    @FindBy(xpath = "//*[id='com.sheygam.contactapp:id/inputAddress']")
+    @FindBy(id="com.sheygam.contactapp:id/inputAddress")
     MobileElement addressEditText;
-    @FindBy(xpath = "//*[id='com.sheygam.contactapp:id/inputDesc']")
+    @FindBy(id="com.sheygam.contactapp:id/inputDesc")
     MobileElement descriptionEditText;
-    @FindBy(xpath = "//*[id='com.sheygam.contactapp:id/createBtn']")
+    @FindBy(id="com.sheygam.contactapp:id/createBtn")
     MobileElement createButton;
 
     public AddNewContactScreen fillContactForm(Contact contact){
