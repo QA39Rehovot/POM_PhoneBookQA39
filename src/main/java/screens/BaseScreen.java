@@ -17,10 +17,12 @@ public class BaseScreen {
     }
 
     public void type(MobileElement element, String text){
-        if (text == null) return;
+//        if (text == null) return;
         element.click();
         element.clear();
-        element.sendKeys(text);
+        if (text != null) {
+            element.sendKeys(text);
+        }
         driver.hideKeyboard();
     }
 

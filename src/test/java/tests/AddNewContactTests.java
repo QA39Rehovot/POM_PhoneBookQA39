@@ -3,6 +3,7 @@ package tests;
 import config.AppiumConfig;
 import models.Contact;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import screens.ContactListScreen;
 import screens.SplashScreen;
@@ -13,7 +14,7 @@ public class AddNewContactTests extends AppiumConfig {
 
     int i;
 
-    @BeforeMethod
+    @BeforeSuite
     public void precondition(){
         i = new Random().nextInt(1000) + 1000;
         new SplashScreen(driver)
@@ -23,7 +24,7 @@ public class AddNewContactTests extends AppiumConfig {
                 .submitLogin();
     }
 
-    @Test
+    @Test(invocationCount = 3)
     public void addNewContactPositive(){
         Contact contact = Contact.builder()
                 .name("AddNewContact_" + i)
@@ -36,6 +37,41 @@ public class AddNewContactTests extends AppiumConfig {
         new ContactListScreen(driver)
                 .openContactForm()
                 .fillContactForm(contact)
-                .submitContactForm();
+                .submitContactForm()
+                .isContactAdded(contact);
     }
+    @Test
+    public void addNewContactNegativeEmptyName(){
+        Contact contact = Contact.builder()
+//                .name("AddNewContact_" + i)
+                .lastName("Negative")
+                .email("addNewContact_" + i + "@mail.com")
+                .phone("1234567" + i)
+                .address("Rehovot")
+                .description("NewContact_" + i)
+                .build();
+        new ContactListScreen(driver)
+                .openContactForm()
+                .fillContactForm(contact)
+                .submitContactFormNegative()
+                .isErrorMessageContainsTextInAlert("blank");
+    }
+    @Test
+    public void addNewContactNegativeEmptyPhone(){
+        Contact contact = Contact.builder()
+                .name("AddNewContact_" + i)
+                .lastName("Negative")
+                .email("addNewContact_" + i + "@mail.com")
+//                .phone("1234567" + i)
+                .address("Rehovot")
+                .description("NewContact_" + i)
+                .build();
+        new ContactListScreen(driver)
+                .openContactForm()
+                .fillContactForm(contact)
+                .submitContactFormNegative()
+                .isErrorMessageContainsTextInAlert("digits");
+    }
+
+
 }

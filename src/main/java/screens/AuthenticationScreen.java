@@ -77,7 +77,9 @@ public class AuthenticationScreen extends BaseScreen{
     }
 
     public AuthenticationScreen isErrorMessageContainsText(String text){
+        waitElement(errorTextView, 5);
         Assert.assertTrue(errorTextView.getText().contains(text));
+        okButton.click();
         return this;
     }
 
